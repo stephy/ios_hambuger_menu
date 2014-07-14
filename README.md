@@ -27,3 +27,6 @@ Account switching (optional)
 * [ ] Tap account to switch to
 * [ ] Include a plus button to Add an Account
 * [ ] Swipe to delete an account
+
+![alt tag](https://raw.githubusercontent.com/stephy/ios_hambuger_menu/master/hamburger.gif)
+

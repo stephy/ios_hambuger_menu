@@ -1,6 +1,5 @@
-ios_hambuger_menu
+iOS Twitter App - Hamburger Menu Exercise
 =================
-
 
 User Stories:
 

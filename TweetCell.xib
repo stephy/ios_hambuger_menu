@@ -82,7 +82,7 @@
                     <constraint firstItem="nsQ-i6-zjq" firstAttribute="centerY" secondItem="sFj-l9-bs6" secondAttribute="centerY" id="zsn-Go-rsT"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="name_label" destination="WyS-J2-OE4" id="gyn-e2-7dp"/>
                 <outlet property="profile_image_view" destination="5E4-wu-UVd" id="g6n-Zr-sAb"/>

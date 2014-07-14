@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIImageView *userPhotoView;
 @property (strong, nonatomic) IBOutlet UILabel *fullnameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *screenNameLabel;
 
 @property (strong, nonatomic) IBOutlet UIImageView *userPosterImageView;
 @property (strong, nonatomic) NSArray *tweets;
@@ -48,13 +49,7 @@
     self.tweets = @[@"tweet1",@"tweet2", @"tweet3"];
     self.currentResult = [[NSMutableArray alloc] init];
     self.currentResult = self.responseObject;
-    self.fullnameLabel.text = @"";
-    //NSLog(@"response object: %@", self.responseObject);
-    
-    //load timeline cell on first load
-    //registration process
-    
-    
+    [self clearUser];   
     //load personalized cell
     //registration process
     [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCell"];
@@ -135,18 +130,10 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //    //NSLog(@"table view indexpath.row = %d", indexPath.row);
-//    MenuCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MenuCell"];
-//    cell.menuLabel.text = [self.currentResult objectAtIndex:indexPath.row];
-//    
-//    return cell;
     
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     
     NSDictionary *tweet = [self.currentResult objectAtIndex:indexPath.row];
-    //[self.favorites insertObject:tweet[@"favorited"] atIndex:indexPath.row];
-    
-    //NSLog(@"tweet: %@", tweet[@"favorited"]);
     //check to see if tweet has been retweeted
     if ([@"0" isEqualToString:tweet[@"retweeted"]]) {
         //show retweeted label
@@ -171,6 +158,10 @@
     cell.text_label.text = tweet[@"text"];
     
     cell.timestamp_label.text = [self retrivePostTime:tweet[@"created_at"]];
+    
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor redColor];
+    [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
 }
@@ -266,6 +257,11 @@
 
     User *currentUser = [User currentUser];
     
+    NSMutableString *screen_name = [[NSMutableString alloc]init];
+    [screen_name appendString:@"@"];
+    [screen_name appendString: currentUser.screen_name];
+    self.screenNameLabel.text = screen_name;
+    
     [client getUserWithID:currentUser.screen_name success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *user = [responseObject objectAtIndex:0];
@@ -274,7 +270,7 @@
         NSString *profile_image_url = user[@"profile_image_url"];
         [self.userPhotoView setImageWithURL: [NSURL URLWithString:profile_image_url]];
 
-        NSString *background_image_url = user[@"profile_background_image_url"];
+        NSString *background_image_url = user[@"profile_banner_url"];
         [self.userPosterImageView setImageWithURL:[NSURL URLWithString:background_image_url]];
         
         // Get the Layer of any view
@@ -290,6 +286,7 @@
 
 - (void)clearUser {
     self.fullnameLabel.text =@"";
+    self.screenNameLabel.text =@"";
     self.userPhotoView.image = nil;
     self.userPosterImageView.image = nil;
 }

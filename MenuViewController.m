@@ -45,7 +45,7 @@
     //registration process
     [self.tableView registerNib:[UINib nibWithNibName:@"MenuCell" bundle:nil] forCellReuseIdentifier:@"MenuCell"];
     //set row height
-    self.tableView.rowHeight = 50;
+    self.tableView.rowHeight = 46;
     
 }
 
@@ -98,7 +98,9 @@
     //    //NSLog(@"table view indexpath.row = %d", indexPath.row);
     MenuCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MenuCell"];
     cell.menuLabel.text = [self.menuOptions objectAtIndex:indexPath.row];
-    
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor =[UIColor colorWithRed:0.557 green:0.263 blue:0.984 alpha:1]; /*#8e43fb*/
+    [cell setSelectedBackgroundView:bgColorView];
     return cell;
 }
 

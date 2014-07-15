@@ -10,6 +10,7 @@
 #import "MenuCell.h"
 #import "TweetCell.h"
 #import "TwitterClient.h"
+#import "UserViewController.h"
 
 #define TAG_PROFILE 0
 #define TAG_TIMELINE 1
@@ -24,8 +25,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *screenNameLabel;
 
 @property (strong, nonatomic) IBOutlet UIImageView *userPosterImageView;
-@property (strong, nonatomic) NSArray *tweets;
 @property (strong, nonatomic) NSMutableArray *currentResult;
+@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
 - (IBAction)btnMovePanelRight:(id)sender;
 
@@ -38,6 +39,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
@@ -45,11 +47,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view from its nib.
-    self.tweets = @[@"tweet1",@"tweet2", @"tweet3"];
+    
     self.currentResult = [[NSMutableArray alloc] init];
     self.currentResult = self.responseObject;
-    [self clearUser];   
+    [self clearUser];
     //load personalized cell
     //registration process
     [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCell"];
@@ -160,14 +163,22 @@
     cell.timestamp_label.text = [self retrivePostTime:tweet[@"created_at"]];
     
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor redColor];
+    bgColorView.backgroundColor = [UIColor colorWithRed:0.557 green:0.263 blue:0.984 alpha:1] /*#8e43fb*/;
     [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"row pressed %d", indexPath.row);
+//on row click open detailed view
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UserViewController *uvc = [[UserViewController alloc] initWithNibName:@"UserViewController" bundle:[NSBundle mainBundle]];
+    uvc.currentTweet = [self.currentResult objectAtIndex:indexPath.row];
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:uvc];
+    
+    [self presentViewController:nvc animated:YES completion:nil];
+    
     
 }
 

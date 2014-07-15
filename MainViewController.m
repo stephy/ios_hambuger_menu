@@ -135,11 +135,10 @@
 
 - (void)setupViewWithResponseObject:(id)responseObject{
     // setup center view
-    self.centerViewController = [[CenterViewController alloc] initWithNibName:@"CenterViewController" bundle:nil];
+    self.centerViewController = [[CenterViewController alloc] initWithNibName:@"CenterViewController" bundle:nil];  
     self.centerViewController.responseObject = responseObject;
     self.centerViewController.view.tag = CENTER_TAG;
     self.centerViewController.delegate = self;
-    
     
     [self.view addSubview:self.centerViewController.view];
     [self addChildViewController:_centerViewController];
@@ -149,7 +148,6 @@
 }
 
 - (UIView *)getMenuView{
-    NSLog(@"getMenuView callled");
     if (_menuVC == nil) {
         self.menuVC = [[MenuViewController alloc] initWithNibName:@"MenuViewController" bundle:nil];
         self.menuVC.view.tag = MENU_PANEL_TAG;

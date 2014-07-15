@@ -30,3 +30,6 @@ Account switching (optional)
 
 ![alt tag](https://raw.githubusercontent.com/stephy/ios_hambuger_menu/master/hamburger.gif)
 
+Showing user when clicking on the user
+![alt tag](https://raw.githubusercontent.com/stephy/ios_hambuger_menu/master/hamburger2.gif)
+
